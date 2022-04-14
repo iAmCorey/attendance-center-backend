@@ -28,21 +28,21 @@ public class ExcelTest {
         System.out.println("Hello World!");
     }
 
-    @Test
-    void readExcelTest() {
-        String fileName = "/Users/corey/Desktop/test.xlsx";
-        EasyExcel.read(fileName, ExcelData.class, new ReadListener<ExcelData>() {
-
-            @Override
-            public void invoke(ExcelData excelData, AnalysisContext analysisContext) {
-                log.info("excelData: {}", excelData);
-            }
-
-            @Override
-            public void doAfterAllAnalysed(AnalysisContext analysisContext) {
-                log.info("finish");
-            }
-        }).sheet().doRead();
+//    @Test
+//    void readExcelTest() {
+//        String fileName = "/Users/corey/Desktop/test.xlsx";
+//        EasyExcel.read(fileName, ExcelData.class, new ReadListener<ExcelData>() {
+//
+//            @Override
+//            public void invoke(ExcelData excelData, AnalysisContext analysisContext) {
+//                log.info("excelData: {}", excelData);
+//            }
+//
+//            @Override
+//            public void doAfterAllAnalysed(AnalysisContext analysisContext) {
+//                log.info("finish");
+//            }
+//        }).sheet().doRead();
 
 
 //        EasyExcel.read(fileName, ExcelData.class, new ExcelDataListener()).sheet().doRead();
