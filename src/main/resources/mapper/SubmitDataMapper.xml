@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tencent.wxcloudrun.dao.SubmitDataMapper">
+
+    <resultMap id="BaseResultMap" type="com.tencent.wxcloudrun.model.SubmitData">
+        <id column="ID" jdbcType="BIGINT" property="id" />
+        <id column="EMPLOYEE_NAME" jdbcType="VARCHAR" property="employeeName" />
+        <result column="EMPLOYEE_ID" jdbcType="VARCHAR" property="employeeId" />
+        <result column="TARGET_DATE" jdbcType="VARCHAR" property="targetDate" />
+        <result column="TYPE" jdbcType="INTEGER" property="type" />
+        <result column="DATA_ID" jdbcType="VARCHAR" property="dataId" />
+        <result column="SUBMIT_TIME" jdbcType="TIMESTAMP" property="submitTime" />
+    </resultMap>
+
+    <insert id="insertData" parameterType="com.tencent.wxcloudrun.model.SubmitData">
+        insert into submit_data
+        (EMPLOYEE_NAME, EMPLOYEE_ID, TARGET_DATE, TYPE, DATA_ID,SUBMIT_TIME)
+        values
+        (#{employeeName}, #{employeeId}, #{targetDate}, #{type}, #{dataId},#{submitTime})
+    </insert>
+
+    <insert id="insertBatchData">
+        insert into submit_data
+        (EMPLOYEE_NAME, EMPLOYEE_ID, TARGET_DATE, TYPE, DATA_ID,SUBMIT_TIME)
+        values
+        <foreach collection="dataList" item="item" separator=",">
+            (#{item.employeeName}, #{item.employeeId}, #{item.targetDate}, #{item.type}, #{item.dataId},#{item.submitTime})
+        </foreach>
+    </insert>
+
+
+
+</mapper>

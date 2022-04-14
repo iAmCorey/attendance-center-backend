@@ -4,28 +4,21 @@ import com.google.gson.annotations.Expose;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
 
 /**
- * Attendance record entity
+ * Attendance submit data entity
  *
  * @author dev-qiuyu
  * @date 2022/4/11
  */
 @Data
-public class Record {
+public class SubmitData {
 
     /**
      * primary key
      */
     @Expose(serialize = false)
     private Long id;
-
-    /**
-     * record id. 32 bytes UUID
-     */
-    @Expose(serialize = true)
-    private String recordId;
 
     /**
      * employee name
@@ -40,15 +33,27 @@ public class Record {
     private String employeeId;
 
     /**
-     * 迟到日期
+     * 需要补考勤的日期
      */
     @Expose(serialize = true)
-    private List<Date> lateDate;
+    private String targetDate;
 
     /**
-     * 早退日期
+     * 类型。1 - 迟到；2 - 早退
      */
     @Expose(serialize = true)
-    private List<Date> earlyDate;
+    private Integer type;
+
+    /**
+     * data id. 32 bytes UUID
+     */
+    @Expose(serialize = true)
+    private String dataId;
+
+    /**
+     * submit time
+     */
+    @Expose(serialize = true)
+    private Date submitTime;
 
 }
