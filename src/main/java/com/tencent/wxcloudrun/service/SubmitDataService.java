@@ -16,4 +16,6 @@ public interface SubmitDataService {
 
     int insertBatchData(List<SubmitData> dataList);
 
+    List<SubmitData> selectDateByNameAndId(String name, String id);
+
 }

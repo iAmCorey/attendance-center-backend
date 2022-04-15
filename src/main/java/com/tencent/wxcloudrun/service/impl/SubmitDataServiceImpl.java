@@ -32,4 +32,9 @@ public class SubmitDataServiceImpl implements SubmitDataService {
   public int insertBatchData(List<SubmitData> dataList) {
     return submitDataMapper.insertBatchData(dataList);
   }
+
+  @Override
+  public List<SubmitData> selectDateByNameAndId(String name, String id) {
+    return submitDataMapper.selectDistinctDateByNameAndId(name, id);
+  }
 }
