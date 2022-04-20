@@ -7,6 +7,7 @@ import com.tencent.wxcloudrun.model.Counter;
 import com.tencent.wxcloudrun.model.SubmitData;
 import com.tencent.wxcloudrun.service.CounterService;
 import com.tencent.wxcloudrun.service.SubmitDataService;
+import com.tencent.wxcloudrun.util.HttpMsgUtils;
 import com.tencent.wxcloudrun.util.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -34,6 +36,22 @@ public class AttendanceController {
     private static final int TYPE_LATE = 1;
     // 早退
     private static final int TYPE_EARLY = 2;
+
+    // app info
+    /**
+     * app id
+     */
+    private static final String APP_ID = "wx3c598f6a14c115c0";
+
+    /**
+     * app secret
+     */
+    private static final String APP_SECRET = "467be81882cb8db18093a33794e9d886";
+
+    /**
+     * code2session request url
+     */
+    private static final String CODE2SESSION_URL = "https://api.weixin.qq.com/sns/jscode2session";
 
     public AttendanceController(@Autowired SubmitDataService submitDataService) {
         this.submitDataService = submitDataService;
@@ -127,6 +145,51 @@ public class AttendanceController {
             } else {
                 return ApiResponse.error("提交失败。插入结果：" + insertRes);
             }
+
+        } catch (JsonSyntaxException jsonSyntaxException) {
+            log.warn(jsonSyntaxException.getMessage());
+            return ApiResponse.error("JSON解析失败 / JSON parse fail");
+        }
+
+    }
+
+    /**
+     * get openid and return records
+     *
+     * @param code request code
+     * @return API response json
+     */
+    @PostMapping(value = "/attendanceService/getRecords")
+    ApiResponse getRecords(@RequestBody String code) {
+        log.info("Receive query attendance records request: {}", code);
+
+        Gson gson = new GsonBuilder()
+                // 禁止unicode转义
+                .disableHtmlEscaping()
+                .create();
+
+        try {
+            if (null == code || code.isEmpty()) {
+                log.warn("code is null or empty");
+                return ApiResponse.error("获取失败");
+            }
+
+            String url = CODE2SESSION_URL + "?appid=" + APP_ID + "&secret=" + APP_SECRET + "&js_code=" + code + "&grant_type=authorization_code";
+            String charSet = StandardCharsets.UTF_8.name();
+            String response = HttpMsgUtils.httpGet(url, charSet);
+
+            log.info("code2session response: {}", response);
+
+            JsonObject resJs = gson.fromJson(response, JsonObject.class);
+
+            if (resJs.get("openid") == null) {
+                log.info("获取openid失败");
+                return ApiResponse.error("获取失败");
+            }
+
+            String openId = resJs.get("openid").getAsString();
+
+            return ApiResponse.ok();
 
         } catch (JsonSyntaxException jsonSyntaxException) {
             log.warn(jsonSyntaxException.getMessage());
