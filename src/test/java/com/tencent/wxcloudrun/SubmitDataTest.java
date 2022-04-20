@@ -30,7 +30,7 @@ public class SubmitDataTest {
         String name = "叶雨田";
         String id = "26626906";
 
-        System.out.println(submitDataService.selectDateByNameAndId(name, id));
+//        System.out.println(submitDataService.selectDateByNameAndId(name, id));
 
     }
 }
