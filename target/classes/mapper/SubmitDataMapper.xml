@@ -32,6 +32,7 @@
        select DISTINCT target_date, type
        from submit_data
        where employee_name = #{employeeName} and employee_id = #{employeeId}
+    order by target_date
    </select>
 
 
