@@ -25,6 +25,10 @@ public final class ApiResponse {
     return new ApiResponse(0, "", data);
   }
 
+  public static ApiResponse notfound(String errorMsg) {
+    return new ApiResponse(404, errorMsg, new HashMap<>());
+  }
+
   public static ApiResponse error(String errorMsg) {
     return new ApiResponse(900, errorMsg, new HashMap<>());
   }

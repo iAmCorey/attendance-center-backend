@@ -4,7 +4,7 @@
 
     <resultMap id="BaseResultMap" type="com.tencent.wxcloudrun.model.SubmitData">
         <id column="ID" jdbcType="BIGINT" property="id" />
-        <id column="EMPLOYEE_NAME" jdbcType="VARCHAR" property="employeeName" />
+        <result column="EMPLOYEE_NAME" jdbcType="VARCHAR" property="employeeName" />
         <result column="EMPLOYEE_ID" jdbcType="VARCHAR" property="employeeId" />
         <result column="TARGET_DATE" jdbcType="VARCHAR" property="targetDate" />
         <result column="TYPE" jdbcType="INTEGER" property="type" />

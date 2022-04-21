@@ -5,8 +5,10 @@ import com.tencent.wxcloudrun.config.ApiResponse;
 import com.tencent.wxcloudrun.dto.CounterRequest;
 import com.tencent.wxcloudrun.model.Counter;
 import com.tencent.wxcloudrun.model.SubmitData;
+import com.tencent.wxcloudrun.model.User;
 import com.tencent.wxcloudrun.service.CounterService;
 import com.tencent.wxcloudrun.service.SubmitDataService;
+import com.tencent.wxcloudrun.service.UserService;
 import com.tencent.wxcloudrun.util.HttpMsgUtils;
 import com.tencent.wxcloudrun.util.RandomUtils;
 import org.slf4j.Logger;
@@ -30,6 +32,7 @@ import java.util.*;
 public class AttendanceController {
 
     final SubmitDataService submitDataService;
+    final UserService userService;
     final Logger log;
 
     // 迟到
@@ -53,8 +56,9 @@ public class AttendanceController {
      */
     private static final String CODE2SESSION_URL = "https://api.weixin.qq.com/sns/jscode2session";
 
-    public AttendanceController(@Autowired SubmitDataService submitDataService) {
+    public AttendanceController(@Autowired SubmitDataService submitDataService, @Autowired UserService userService) {
         this.submitDataService = submitDataService;
+        this.userService = userService;
         this.log = LoggerFactory.getLogger(AttendanceController.class);
     }
 
@@ -188,8 +192,18 @@ public class AttendanceController {
             }
 
             String openId = resJs.get("openid").getAsString();
+            User user = userService.selectByOpenId(openId);
 
-            return ApiResponse.ok();
+            if (null == user) {
+                log.info("no user found with this openId");
+                return ApiResponse.notfound("用户不存在");
+
+            }
+
+            List<SubmitData> submitDataList = submitDataService.selectDateByNameAndId(user.getEmployeeName(), user.getEmployeeId());
+            log.info("已提交的记录: {}", submitDataList);
+
+            return ApiResponse.ok(submitDataList);
 
         } catch (JsonSyntaxException jsonSyntaxException) {
             log.warn(jsonSyntaxException.getMessage());

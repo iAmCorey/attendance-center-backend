@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tencent.wxcloudrun.dao.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.tencent.wxcloudrun.model.User">
+        <id column="ID" jdbcType="BIGINT" property="id" />
+        <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+        <result column="EMPLOYEE_NAME" jdbcType="VARCHAR" property="employeeName" />
+        <result column="EMPLOYEE_ID" jdbcType="VARCHAR" property="employeeId" />
+        <result column="OPEN_ID" jdbcType="VARCHAR" property="openId" />
+        <result column="FLAG" jdbcType="INTEGER" property="flag" />
+        <result column="EXTEND_INFO" jdbcType="VARCHAR" property="extendInfo" />
+    </resultMap>
+
+    <insert id="insertUser" parameterType="com.tencent.wxcloudrun.model.User">
+        insert into user
+        (USER_ID, EMPLOYEE_NAME, EMPLOYEE_ID, OPEN_ID, FLAG, EXTEND_INFO)
+        values
+        (#{userId}, #{employeeName}, #{employeeId}, #{openId}, #{flag}, #{extendInfo})
+    </insert>
+
+
+   <select id="selectByOpenId" resultMap="BaseResultMap">
+       select *
+       from user
+       where open_id = #{openId}
+   </select>
+
+
+
+</mapper>
