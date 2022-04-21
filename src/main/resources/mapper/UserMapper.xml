@@ -23,7 +23,7 @@
    <select id="selectByOpenId" resultMap="BaseResultMap">
        select *
        from user
-       where open_id = #{openId}
+       where open_id = #{openId} and flag = 0
    </select>
 
 

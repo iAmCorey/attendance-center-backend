@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 
 /**
@@ -39,6 +40,11 @@ public class AttendanceController {
     private static final int TYPE_LATE = 1;
     // 早退
     private static final int TYPE_EARLY = 2;
+
+    // user flag - normal
+    private static final int FLAG_NORMAL = 0;
+    // user flag - deleted
+    private static final int FLAG_DELETED = 1;
 
     // app info
     /**
@@ -192,6 +198,8 @@ public class AttendanceController {
             }
 
             String openId = resJs.get("openid").getAsString();
+            log.info("openid: {}", openId);
+
             User user = userService.selectByOpenId(openId);
 
             if (null == user) {
@@ -208,6 +216,76 @@ public class AttendanceController {
         } catch (JsonSyntaxException jsonSyntaxException) {
             log.warn(jsonSyntaxException.getMessage());
             return ApiResponse.error("JSON解析失败 / JSON parse fail");
+        }
+
+    }
+
+
+    /**
+     * bind a new user
+     *
+     * @param req request body
+     * @return API response json
+     */
+    @PostMapping(value = "/attendanceService/bindUser")
+    ApiResponse bindUser(@RequestBody String req) {
+        log.info("Receive query attendance records request: {}", req);
+
+        Gson gson = new GsonBuilder()
+                // 禁止unicode转义
+                .disableHtmlEscaping()
+                .create();
+
+        try {
+            JsonObject reqJs = gson.fromJson(req, JsonObject.class);
+
+            // 姓名和员工编号
+            String name = reqJs.get("name").getAsString();
+            String id = reqJs.get("id").getAsString();
+
+            // code
+            String code = reqJs.get("code").getAsString();
+
+            log.info("姓名 & 员工编号: {}, {}", name, id);
+
+            String url = CODE2SESSION_URL + "?appid=" + APP_ID + "&secret=" + APP_SECRET + "&js_code=" + code + "&grant_type=authorization_code";
+            String charSet = StandardCharsets.UTF_8.name();
+            String response = HttpMsgUtils.httpGet(url, charSet);
+
+            log.info("code2session response: {}", response);
+
+            JsonObject resJs = gson.fromJson(response, JsonObject.class);
+
+            if (resJs.get("openid") == null) {
+                log.info("获取openid失败");
+                return ApiResponse.error("获取失败");
+            }
+
+            String openId = resJs.get("openid").getAsString();
+            log.info("openId: {}", openId);
+
+            User user = new User();
+            user.setUserId(RandomUtils.getUUID());
+            user.setEmployeeName(name);
+            user.setEmployeeId(id);
+            user.setOpenId(openId);
+            user.setFlag(FLAG_NORMAL);
+
+            int insertRes = userService.insertUser(user);
+            log.info("insert user result: {}", insertRes);
+
+            if (insertRes == 1) {
+                return ApiResponse.ok("绑定成功");
+            } else {
+                return ApiResponse.error("绑定失败");
+            }
+
+        } catch (JsonSyntaxException jsonSyntaxException) {
+            log.warn(jsonSyntaxException.getMessage());
+            return ApiResponse.error("JSON解析失败 / JSON parse fail");
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+            return ApiResponse.error("您已绑定过");
         }
 
     }

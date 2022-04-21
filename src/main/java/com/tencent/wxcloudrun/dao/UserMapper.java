@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-  int insertUser(@Param("user") User user);
+  int insertUser(User user);
 
   User selectByOpenId(@Param("openId") String openId);
 }
