@@ -15,17 +15,17 @@
 
     <insert id="insertData" parameterType="com.tencent.wxcloudrun.model.SubmitData">
         insert into submit_data
-            (EMPLOYEE_NAME, EMPLOYEE_ID, TARGET_DATE, TYPE, DATA_ID, SUBMIT_TIME)
-        values (#{employeeName}, #{employeeId}, #{targetDate}, #{type}, #{dataId}, #{submitTime})
+            (EMPLOYEE_NAME, EMPLOYEE_ID, TARGET_DATE, TYPE, DATA_ID, FLAG, SUBMIT_TIME)
+        values (#{employeeName}, #{employeeId}, #{targetDate}, #{type}, #{dataId}, #{flag}, #{submitTime})
     </insert>
 
     <insert id="insertBatchData">
         insert into submit_data
-        (EMPLOYEE_NAME, EMPLOYEE_ID, TARGET_DATE, TYPE, DATA_ID,SUBMIT_TIME)
+        (EMPLOYEE_NAME, EMPLOYEE_ID, TARGET_DATE, TYPE, DATA_ID, FLAG, SUBMIT_TIME)
         values
         <foreach collection="dataList" item="item" separator=",">
             (#{item.employeeName}, #{item.employeeId}, #{item.targetDate}, #{item.type},
-            #{item.dataId},#{item.submitTime})
+            #{item.dataId}, #{item.flag}, #{item.submitTime})
         </foreach>
     </insert>
 

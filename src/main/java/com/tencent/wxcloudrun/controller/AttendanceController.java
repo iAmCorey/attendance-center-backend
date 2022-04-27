@@ -112,6 +112,7 @@ public class AttendanceController {
                     submitData.setTargetDate(lateDate.getAsString());
 
                     submitData.setDataId(RandomUtils.getUUID());
+                    submitData.setFlag(FLAG_NORMAL);
                     submitData.setSubmitTime(new Date());
 
                     submitDataList.add(submitData);
