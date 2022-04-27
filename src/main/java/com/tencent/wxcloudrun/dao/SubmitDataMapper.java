@@ -14,4 +14,6 @@ public interface SubmitDataMapper {
   int insertBatchData(@Param("dataList") List<SubmitData> submitDataList);
 
   List<SubmitData> selectDistinctDateByNameAndId(@Param("employeeName") String employeeName, @Param("employeeId") String employeeId);
+
+  int deleteRecords(@Param("employeeName") String name, @Param("employeeId") String id, @Param("type") int type, @Param("date") String date);
 }

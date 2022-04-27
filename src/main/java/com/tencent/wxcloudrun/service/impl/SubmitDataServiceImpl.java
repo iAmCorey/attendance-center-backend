@@ -37,4 +37,9 @@ public class SubmitDataServiceImpl implements SubmitDataService {
   public List<SubmitData> selectDateByNameAndId(String name, String id) {
     return submitDataMapper.selectDistinctDateByNameAndId(name, id);
   }
+
+  @Override
+  public int deleteRecord(String name, String id, String type, String date) {
+    return submitDataMapper.deleteRecords(name, id, Integer.parseInt(type), date);
+  }
 }

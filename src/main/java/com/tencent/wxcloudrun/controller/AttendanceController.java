@@ -41,9 +41,9 @@ public class AttendanceController {
     // 早退
     private static final int TYPE_EARLY = 2;
 
-    // user flag - normal
+    // user & data flag - normal
     private static final int FLAG_NORMAL = 0;
-    // user flag - deleted
+    // user & data flag - deleted
     private static final int FLAG_DELETED = 1;
 
     // app info
@@ -137,6 +137,7 @@ public class AttendanceController {
                     submitData.setTargetDate(earlyDate.getAsString());
 
                     submitData.setDataId(RandomUtils.getUUID());
+                    submitData.setFlag(FLAG_NORMAL);
                     submitData.setSubmitTime(new Date());
 
                     submitDataList.add(submitData);
@@ -155,6 +156,49 @@ public class AttendanceController {
             } else {
                 return ApiResponse.error("提交失败。插入结果：" + insertRes);
             }
+
+        } catch (JsonSyntaxException jsonSyntaxException) {
+            log.warn(jsonSyntaxException.getMessage());
+            return ApiResponse.error("JSON解析失败 / JSON parse fail");
+        }
+
+    }
+
+    /**
+     * delete attendance record
+     *
+     * @param req request body
+     * @return API response json
+     */
+    @PostMapping(value = "/attendanceService/deleteRecord")
+    ApiResponse deleteAttendance(@RequestBody String req) {
+        log.info("Receive delete attendance request: {}", req);
+
+        Gson gson = new GsonBuilder()
+                // 禁止unicode转义
+                .disableHtmlEscaping()
+                .create();
+
+        try {
+            JsonObject reqJs = gson.fromJson(req, JsonObject.class);
+
+            // name, id, type, date
+            String name = reqJs.get("name").getAsString();
+            String id = reqJs.get("id").getAsString();
+            String type = reqJs.get("type").getAsString();
+            String date=  reqJs.get("date").getAsString();
+
+            log.info("删除记录：姓名 & 员工编号 & 类型 & 日期: {}, {}, {}, {}", name, id, type, date);
+
+            int deleteRes = submitDataService.deleteRecord(name, id, type, date);
+            log.info("Delete result: {}", deleteRes);
+
+            if (deleteRes > 0) {
+                return ApiResponse.ok("删除成功");
+            } else {
+                return ApiResponse.error("删除失败");
+            }
+
 
         } catch (JsonSyntaxException jsonSyntaxException) {
             log.warn(jsonSyntaxException.getMessage());

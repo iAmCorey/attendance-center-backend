@@ -1,0 +1,56 @@
+
+[	java:S1121"FDefine and throw a dedicated exception instead of using a generic one.(•¸„…
+a	java:S112¶"FDefine and throw a dedicated exception instead of using a generic one.(Àğò”ÿÿÿÿÿ
+a	java:S112¡"FDefine and throw a dedicated exception instead of using a generic one.(Î›äÎüÿÿÿÿ
+t
+java:S3008%"YRename this field "SOCKET_TIMEOUT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øøà¨øÿÿÿÿ
+u
+java:S3008&"ZRename this field "CONNECT_TIMEOUT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(íÊí¬øÿÿÿÿ
+r
+java:S3008'"WRename this field "SSL_PROTOCOL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´ĞÒ€ıÿÿÿÿ
+s
+java:S3008("XRename this field "DO_NOT_VERIFY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äˆÇÉıÿÿÿÿ
+{
+java:S1149‚"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(¬µãùÿÿÿÿ
+{
+java:S1149•"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(˜İâœÿÿÿÿÿ
+U
+java:S5527+"?Enable server hostname verification on this SSL/TLS connection.(§¼Éç
+—
+java:S11865"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Æ¸Êä
+œ
+java:S1186:"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(àóÈ•ıÿÿÿÿ
+V
+java:S48305"@Enable server certificate validation on this SSL/TLS connection.(Æ¸Êä
+[
+java:S4830:"@Enable server certificate validation on this SSL/TLS connection.(àóÈ•ıÿÿÿÿ
+c	java:S100n"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı©Ëó
+n
+java:S2737‹"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+s
+java:S2737’"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(úÈ¼¨ıÿÿÿÿ
+E
+java:S2093r"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ
+n
+java:S2737¾"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+s
+java:S2737Ä"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(úÈ¼¨ıÿÿÿÿ
+d	java:S100ñ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“ŠÚ¹
+F
+java:S2093¯"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ
+i
+java:S1192€"MDefine a constant instead of duplicating this literal "Content-Type" 3 times.(ÎÅİøÿÿÿÿ
+C
+java:S1604("(Make this anonymous inner class a lambda(äˆÇÉıÿÿÿÿ
+Y
+java:S1163’"=Refactor this code to not throw exceptions in finally blocks.(úÈ¼¨ıÿÿÿÿ
+Y
+java:S1163Ä"=Refactor this code to not throw exceptions in finally blocks.(úÈ¼¨ıÿÿÿÿ
+P
+java:S1143’"4Remove this throw statement from this finally block.(úÈ¼¨ıÿÿÿÿ
+P
+java:S1143Ä"4Remove this throw statement from this finally block.(úÈ¼¨ıÿÿÿÿ
+o
+java:S2259È"QA "NullPointerException" could be thrown; "entityStringBuilder" is nullable here.(É‹œû8ı®“²„0
+N
+java:S2589À"7Remove this expression which always evaluates to "true"(¯Áà

@@ -18,4 +18,6 @@ public interface SubmitDataService {
 
     List<SubmitData> selectDateByNameAndId(String name, String id);
 
+    int deleteRecord(String name, String id, String type, String date);
+
 }

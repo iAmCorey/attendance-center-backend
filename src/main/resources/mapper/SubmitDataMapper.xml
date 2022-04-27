@@ -9,6 +9,7 @@
         <result column="TARGET_DATE" jdbcType="VARCHAR" property="targetDate"/>
         <result column="TYPE" jdbcType="INTEGER" property="type"/>
         <result column="DATA_ID" jdbcType="VARCHAR" property="dataId"/>
+        <result column="FLAG" jdbcType="INTEGER" property="int" />
         <result column="SUBMIT_TIME" jdbcType="TIMESTAMP" property="submitTime"/>
     </resultMap>
 
@@ -33,8 +34,18 @@
         from submit_data
         where employee_name = #{employeeName}
           and employee_id = #{employeeId}
+            and flag = 0
         order by target_date
     </select>
+
+    <update id="deleteRecords">
+        update submit_data
+        set flag = 1
+        where employee_name = #{employeeName}
+            and employee_id = #{employeeId}
+            and type  = #{type}
+            and target_date = #{date}
+    </update>
 
 
 </mapper>

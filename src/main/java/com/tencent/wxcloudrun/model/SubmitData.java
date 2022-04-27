@@ -51,6 +51,12 @@ public class SubmitData {
     private String dataId;
 
     /**
+     * flag. 0 - normal, 1 - deleted
+     */
+    @Expose(serialize = true)
+    private Integer flag;
+
+    /**
      * submit time
      */
     @Expose(serialize = true)
