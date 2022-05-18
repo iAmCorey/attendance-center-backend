@@ -27,3 +27,5 @@ v
 Fsrc/main/java/com/tencent/wxcloudrun/service/impl/UserServiceImpl.java,d/9/d9051c7710954febea2b905b09df199c97d9f1a8
 m
 =src/main/java/com/tencent/wxcloudrun/service/UserService.java,4/9/49942f8eda0d97e2baa5f589ed92fa95ff90ed59
+d
+4src/main/java/com/tencent/wxcloudrun/model/User.java,8/5/85797f088b7cde5054c29cbe4fee624c3cc81dee

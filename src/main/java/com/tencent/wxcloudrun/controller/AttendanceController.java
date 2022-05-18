@@ -111,6 +111,14 @@ public class AttendanceController {
                     submitData.setType(TYPE_LATE);
                     submitData.setTargetDate(lateDate.getAsString());
 
+                    // yyyy-MM-dd
+                    Integer year = Integer.parseInt(lateDate.getAsString().substring(0, 4));
+                    Integer month = Integer.parseInt(lateDate.getAsString().substring(5, 7));
+                    Integer day = Integer.parseInt(lateDate.getAsString().substring(8, 10));
+                    submitData.setTargetYear(year);
+                    submitData.setTargetMonth(month);
+                    submitData.setTargetDay(day);
+
                     submitData.setDataId(RandomUtils.getUUID());
                     submitData.setFlag(FLAG_NORMAL);
                     submitData.setSubmitTime(new Date());
@@ -136,6 +144,14 @@ public class AttendanceController {
 
                     submitData.setType(TYPE_EARLY);
                     submitData.setTargetDate(earlyDate.getAsString());
+
+                    // yyyy-MM-dd
+                    Integer year = Integer.parseInt(earlyDate.getAsString().substring(0, 4));
+                    Integer month = Integer.parseInt(earlyDate.getAsString().substring(5, 7));
+                    Integer day = Integer.parseInt(earlyDate.getAsString().substring(8, 10));
+                    submitData.setTargetYear(year);
+                    submitData.setTargetMonth(month);
+                    submitData.setTargetDay(day);
 
                     submitData.setDataId(RandomUtils.getUUID());
                     submitData.setFlag(FLAG_NORMAL);

@@ -7,6 +7,9 @@
         <result column="EMPLOYEE_NAME" jdbcType="VARCHAR" property="employeeName"/>
         <result column="EMPLOYEE_ID" jdbcType="VARCHAR" property="employeeId"/>
         <result column="TARGET_DATE" jdbcType="VARCHAR" property="targetDate"/>
+        <result column="TARGET_YEAR" jdbcType="INTEGER" property="targetYear"/>
+        <result column="TARGET_MONTH" jdbcType="INTEGER" property="targetMonth"/>
+        <result column="TARGET_DAY" jdbcType="INTEGER" property="targetDay"/>
         <result column="TYPE" jdbcType="INTEGER" property="type"/>
         <result column="DATA_ID" jdbcType="VARCHAR" property="dataId"/>
         <result column="FLAG" jdbcType="INTEGER" property="int" />
@@ -15,16 +18,16 @@
 
     <insert id="insertData" parameterType="com.tencent.wxcloudrun.model.SubmitData">
         insert into submit_data
-            (EMPLOYEE_NAME, EMPLOYEE_ID, TARGET_DATE, TYPE, DATA_ID, FLAG, SUBMIT_TIME)
-        values (#{employeeName}, #{employeeId}, #{targetDate}, #{type}, #{dataId}, #{flag}, #{submitTime})
+            (EMPLOYEE_NAME, EMPLOYEE_ID, TARGET_DATE, TARGET_YEAR, TARGET_MONTH, TARGET_DAY, TYPE, DATA_ID, FLAG, SUBMIT_TIME)
+        values (#{employeeName}, #{employeeId}, #{targetDate}, #{targetYear}, #{targetMonth}, #{targetDay}, #{type}, #{dataId}, #{flag}, #{submitTime})
     </insert>
 
     <insert id="insertBatchData">
         insert into submit_data
-        (EMPLOYEE_NAME, EMPLOYEE_ID, TARGET_DATE, TYPE, DATA_ID, FLAG, SUBMIT_TIME)
+        (EMPLOYEE_NAME, EMPLOYEE_ID, TARGET_DATE, TARGET_YEAR, TARGET_MONTH, TARGET_DAY, TYPE, DATA_ID, FLAG, SUBMIT_TIME)
         values
         <foreach collection="dataList" item="item" separator=",">
-            (#{item.employeeName}, #{item.employeeId}, #{item.targetDate}, #{item.type},
+            (#{item.employeeName}, #{item.employeeId}, #{item.targetDate}, #{item.targetYear}, #{item.targetMonth}, #{item.targetDay}, #{item.type},
             #{item.dataId}, #{item.flag}, #{item.submitTime})
         </foreach>
     </insert>

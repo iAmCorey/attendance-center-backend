@@ -39,6 +39,24 @@ public class SubmitData {
     private String targetDate;
 
     /**
+     * 需要补考勤的日期 - 年
+     */
+    @Expose(serialize = true)
+    private Integer targetYear;
+
+    /**
+     * 需要补考勤的日期 - 月
+     */
+    @Expose(serialize = true)
+    private Integer targetMonth;
+
+    /**
+     * 需要补考勤的日期 - 日
+     */
+    @Expose(serialize = true)
+    private Integer targetDay;
+
+    /**
      * 类型。1 - 迟到；2 - 早退
      */
     @Expose(serialize = true)
