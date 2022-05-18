@@ -33,7 +33,7 @@
     </insert>
 
     <select id="selectDistinctDateByNameAndId" resultMap="BaseResultMap">
-        select DISTINCT target_date, type, employee_name, employee_id
+        select DISTINCT target_date, target_year, target_month, target_day, type, employee_name, employee_id
         from submit_data
         where employee_name = #{employeeName}
           and employee_id = #{employeeId}
