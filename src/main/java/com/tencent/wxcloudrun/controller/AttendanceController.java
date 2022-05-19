@@ -45,6 +45,8 @@ public class AttendanceController {
     private static final int FLAG_NORMAL = 0;
     // user & data flag - deleted
     private static final int FLAG_DELETED = 1;
+    // data flag - submitted
+    private static final int FLAG_SUBMITTED = 2;
 
     // app info
     /**
@@ -280,6 +282,47 @@ public class AttendanceController {
         }
 
     }
+
+    /**
+     * get openid and return records
+     *
+     * @param reqStr request string
+     * @return API response json
+     */
+    @PostMapping(value = "/attendanceService/getRecordsNew")
+    ApiResponse getRecordsNew(@RequestBody String reqStr) {
+        log.info("Receive query attendance records request: {}", reqStr);
+
+        Gson gson = new GsonBuilder()
+                // 禁止unicode转义
+                .disableHtmlEscaping()
+                .create();
+
+        try {
+            if (null == reqStr || reqStr.isEmpty()) {
+                log.warn("code is null or empty");
+                return ApiResponse.error("获取失败");
+            }
+
+            JsonObject reqJs = gson.fromJson(reqStr, JsonObject.class);
+
+            // 姓名和员工编号,flag
+            String name = reqJs.get("name").getAsString();
+            String id = reqJs.get("id").getAsString();
+            int flag = reqJs.get("flag").getAsInt();
+
+            List<SubmitData> submitDataList = submitDataService.selectDateByNameAndIdAndFlag(name, id, flag);
+            log.info("已提交的记录: {}", submitDataList);
+
+            return ApiResponse.ok(submitDataList);
+
+        } catch (JsonSyntaxException jsonSyntaxException) {
+            log.warn(jsonSyntaxException.getMessage());
+            return ApiResponse.error("JSON解析失败 / JSON parse fail");
+        }
+
+    }
+
 
     /**
      * Login
