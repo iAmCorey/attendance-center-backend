@@ -225,63 +225,6 @@ public class AttendanceController {
         }
 
     }
-//
-//    /**
-//     * get openid and return records
-//     *
-//     * @param code request code
-//     * @return API response json
-//     */
-//    @PostMapping(value = "/attendanceService/getRecords")
-//    ApiResponse getRecords(@RequestBody String code) {
-//        log.info("Receive query attendance records request: {}", code);
-//
-//        Gson gson = new GsonBuilder()
-//                // 禁止unicode转义
-//                .disableHtmlEscaping()
-//                .create();
-//
-//        try {
-//            if (null == code || code.isEmpty()) {
-//                log.warn("code is null or empty");
-//                return ApiResponse.error("获取失败");
-//            }
-//
-//            String url = CODE2SESSION_URL + "?appid=" + APP_ID + "&secret=" + APP_SECRET + "&js_code=" + code + "&grant_type=authorization_code";
-//            String charSet = StandardCharsets.UTF_8.name();
-//            String response = HttpMsgUtils.httpGet(url, charSet);
-//
-//            log.info("code2session response: {}", response);
-//
-//            JsonObject resJs = gson.fromJson(response, JsonObject.class);
-//
-//            if (resJs.get("openid") == null) {
-//                log.info("获取openid失败");
-//                return ApiResponse.error("获取失败");
-//            }
-//
-//            String openId = resJs.get("openid").getAsString();
-//            log.info("openid: {}", openId);
-//
-//            User user = userService.selectByOpenId(openId);
-//
-//            if (null == user) {
-//                log.info("no user found with this openId");
-//                return ApiResponse.notfound("用户不存在");
-//
-//            }
-//
-//            List<SubmitData> submitDataList = submitDataService.selectDateByNameAndId(user.getEmployeeName(), user.getEmployeeId());
-//            log.info("已提交的记录: {}", submitDataList);
-//
-//            return ApiResponse.ok(submitDataList);
-//
-//        } catch (JsonSyntaxException jsonSyntaxException) {
-//            log.warn(jsonSyntaxException.getMessage());
-//            return ApiResponse.error("JSON解析失败 / JSON parse fail");
-//        }
-//
-//    }
 
     /**
      * get openid and return records

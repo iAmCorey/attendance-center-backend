@@ -32,15 +32,6 @@
         </foreach>
     </insert>
 
-    <select id="selectDistinctDateByNameAndId" resultMap="BaseResultMap">
-        select DISTINCT target_date, target_year, target_month, target_day, type, employee_name, employee_id
-        from submit_data
-        where employee_name = #{employeeName}
-          and employee_id = #{employeeId}
-            and flag = 0
-        order by target_date
-    </select>
-
     <select id="selectDistinctDateByNameAndIdAndFlag" resultMap="BaseResultMap">
         select DISTINCT target_date, target_year, target_month, target_day, type, employee_name, employee_id
         from submit_data

@@ -34,11 +34,6 @@ public class SubmitDataServiceImpl implements SubmitDataService {
   }
 
   @Override
-  public List<SubmitData> selectDateByNameAndId(String name, String id) {
-    return submitDataMapper.selectDistinctDateByNameAndId(name, id);
-  }
-
-  @Override
   public List<SubmitData> selectDateByNameAndIdAndFlag(String name, String id, int flag) {
     return submitDataMapper.selectDistinctDateByNameAndIdAndFlag(name, id, flag);
   }

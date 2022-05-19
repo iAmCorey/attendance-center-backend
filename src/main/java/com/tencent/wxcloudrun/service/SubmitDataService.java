@@ -16,8 +16,6 @@ public interface SubmitDataService {
 
     int insertBatchData(List<SubmitData> dataList);
 
-    List<SubmitData> selectDateByNameAndId(String name, String id);
-
     List<SubmitData> selectDateByNameAndIdAndFlag(String name, String id, int flag);
 
     int deleteRecord(String name, String id, String type, String date);
