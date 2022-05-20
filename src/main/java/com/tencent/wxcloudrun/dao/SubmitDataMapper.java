@@ -13,7 +13,7 @@ public interface SubmitDataMapper {
 
   int insertBatchData(@Param("dataList") List<SubmitData> submitDataList);
 
-  List<SubmitData> selectDistinctDateByNameAndIdAndFlag(@Param("employeeName") String employeeName, @Param("employeeId") String employeeId, @Param("flag") int flag);
+  List<SubmitData> selectDistinctDateByNameAndIdAndFlag(@Param("employeeName") String employeeName, @Param("employeeId") String employeeId, @Param("flags") List<Integer> flags);
 
   int deleteRecords(@Param("employeeName") String name, @Param("employeeId") String id, @Param("type") int type, @Param("date") String date);
 }

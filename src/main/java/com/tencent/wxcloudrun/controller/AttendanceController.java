@@ -252,9 +252,10 @@ public class AttendanceController {
             // 姓名和员工编号,flag
             String name = reqJs.get("name").getAsString();
             String id = reqJs.get("id").getAsString();
-            int flag = reqJs.get("flag").getAsInt();
+            String flags = reqJs.get("flag").getAsString();
 
-            List<SubmitData> submitDataList = submitDataService.selectDateByNameAndIdAndFlag(name, id, flag);
+            List<Integer> flagList = convertFlags(flags);
+            List<SubmitData> submitDataList = submitDataService.selectDateByNameAndIdAndFlag(name, id, flagList);
             log.info("已提交的记录: {}", submitDataList);
 
             return ApiResponse.ok(submitDataList);
@@ -390,6 +391,36 @@ public class AttendanceController {
             return ApiResponse.error("您已绑定过");
         }
 
+    }
+
+    /**
+     * convert flags from string to list<int>
+     * @param flags
+     * @return
+     */
+    private List<Integer> convertFlags(String flags) {
+        if (null == flags || flags.isEmpty()) {
+            return null;
+        }
+
+
+        String[] flag = flags.split(",");
+        if (flag.length <= 0) {
+            return null;
+        }
+
+        List<Integer> result = new ArrayList<>();
+
+        for (String item : flag) {
+            try {
+                result.add(Integer.parseInt(item));
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw e;
+            }
+        }
+
+        return result;
     }
 
 }
