@@ -10,13 +10,14 @@
         <result column="OPEN_ID" jdbcType="VARCHAR" property="openId" />
         <result column="FLAG" jdbcType="INTEGER" property="flag" />
         <result column="EXTEND_INFO" jdbcType="VARCHAR" property="extendInfo" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     </resultMap>
 
     <insert id="insertUser" parameterType="com.tencent.wxcloudrun.model.User">
         insert into user
-        (USER_ID, EMPLOYEE_NAME, EMPLOYEE_ID, OPEN_ID, FLAG, EXTEND_INFO)
+        (USER_ID, EMPLOYEE_NAME, EMPLOYEE_ID, OPEN_ID, FLAG, EXTEND_INFO, CREATE_TIME)
         values
-        (#{userId}, #{employeeName}, #{employeeId}, #{openId}, #{flag}, #{extendInfo})
+        (#{userId}, #{employeeName}, #{employeeId}, #{openId}, #{flag}, #{extendInfo}, #{createTime})
     </insert>
 
 

@@ -373,6 +373,7 @@ public class AttendanceController {
             user.setEmployeeId(id);
             user.setOpenId(openId);
             user.setFlag(FLAG_NORMAL);
+            user.setCreateTime(new Date());
 
             int insertRes = userService.insertUser(user);
             log.info("insert user result: {}", insertRes);

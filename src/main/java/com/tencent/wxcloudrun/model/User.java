@@ -56,4 +56,10 @@ public class User {
     @Expose(serialize = true)
     private String extendInfo;
 
+    /**
+     * create time
+     */
+    @Expose(serialize = false)
+    private Date createTime;
+
 }

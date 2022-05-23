@@ -23,5 +23,3 @@ h
 8src/test/java/com/tencent/wxcloudrun/SubmitDataTest.java,d/2/d270b06eb89c7b80bbe7077eede4551f0c96d44d
 k
 ;src/main/java/com/tencent/wxcloudrun/util/HttpMsgUtils.java,b/0/b092fec287048f21d2080f7a8d7434b4263da2d8
-d
-4src/main/java/com/tencent/wxcloudrun/model/User.java,8/5/85797f088b7cde5054c29cbe4fee624c3cc81dee
