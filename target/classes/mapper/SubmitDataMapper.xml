@@ -12,7 +12,7 @@
         <result column="TARGET_DAY" jdbcType="INTEGER" property="targetDay"/>
         <result column="TYPE" jdbcType="INTEGER" property="type"/>
         <result column="DATA_ID" jdbcType="VARCHAR" property="dataId"/>
-        <result column="FLAG" jdbcType="INTEGER" property="int" />
+        <result column="FLAG" jdbcType="INTEGER" property="flag" />
         <result column="SUBMIT_TIME" jdbcType="TIMESTAMP" property="submitTime"/>
     </resultMap>
 
@@ -33,7 +33,7 @@
     </insert>
 
     <select id="selectDistinctDateByNameAndIdAndFlag" resultMap="BaseResultMap">
-        select DISTINCT target_date, target_year, target_month, target_day, type, employee_name, employee_id
+        select DISTINCT target_date, target_year, target_month, target_day, type, employee_name, employee_id, flag
         from submit_data
         where employee_name = #{employeeName}
           and employee_id = #{employeeId}

@@ -1,8 +1,6 @@
 
 t
 Dsrc/main/java/com/tencent/wxcloudrun/controller/IndexController.java,8/c/8c654608802860f8604666b20415eacb98f109bb
-v
-Fsrc/main/java/com/tencent/wxcloudrun/controller/CounterController.java,3/e/3e9e4aef1ba515e438cdef776cd174527efe50b4
 <
 settings.xml,1/d/1d784fce58c3719506730fb9749600554125b511
 g
