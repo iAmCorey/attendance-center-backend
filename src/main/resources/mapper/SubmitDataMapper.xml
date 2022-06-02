@@ -37,6 +37,12 @@
         from submit_data
         where employee_name = #{employeeName}
           and employee_id = #{employeeId}
+         <if test="targetMonths != null and targetMonths.size() != 0">
+            and target_month in
+            <foreach collection="targetMonths" item="item" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+          </if>
           <if test="flags != null and flags.size() != 0">
             and flag in
             <foreach collection="flags" item="item" index="index" open="(" separator="," close=")">

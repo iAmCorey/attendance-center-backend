@@ -3,6 +3,7 @@ package com.tencent.wxcloudrun.service.impl;
 import com.tencent.wxcloudrun.dao.SubmitDataMapper;
 import com.tencent.wxcloudrun.model.SubmitData;
 import com.tencent.wxcloudrun.service.SubmitDataService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import java.util.List;
  * @date 2022/4
  */
 @Service
+@Slf4j
 public class SubmitDataServiceImpl implements SubmitDataService {
 
   @Autowired
@@ -34,8 +36,8 @@ public class SubmitDataServiceImpl implements SubmitDataService {
   }
 
   @Override
-  public List<SubmitData> selectDateByNameAndIdAndFlag(String name, String id, List<Integer> flags) {
-    return submitDataMapper.selectDistinctDateByNameAndIdAndFlag(name, id, flags);
+  public List<SubmitData> selectDateByNameAndIdAndFlag(String name, String id, List<Integer> targetMonths, List<Integer> flags) {
+    return submitDataMapper.selectDistinctDateByNameAndIdAndFlag(name, id, targetMonths, flags);
   }
 
   @Override

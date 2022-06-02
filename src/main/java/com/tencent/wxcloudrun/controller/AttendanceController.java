@@ -2,11 +2,8 @@ package com.tencent.wxcloudrun.controller;
 
 import com.google.gson.*;
 import com.tencent.wxcloudrun.config.ApiResponse;
-import com.tencent.wxcloudrun.dto.CounterRequest;
-import com.tencent.wxcloudrun.model.Counter;
 import com.tencent.wxcloudrun.model.SubmitData;
 import com.tencent.wxcloudrun.model.User;
-import com.tencent.wxcloudrun.service.CounterService;
 import com.tencent.wxcloudrun.service.SubmitDataService;
 import com.tencent.wxcloudrun.service.UserService;
 import com.tencent.wxcloudrun.util.HttpMsgUtils;
@@ -14,13 +11,11 @@ import com.tencent.wxcloudrun.util.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 
 /**
@@ -249,13 +244,18 @@ public class AttendanceController {
 
             JsonObject reqJs = gson.fromJson(reqStr, JsonObject.class);
 
-            // 姓名和员工编号,flag
+            // 姓名和员工编号, flag, targetMonth
             String name = reqJs.get("name").getAsString();
             String id = reqJs.get("id").getAsString();
             String flags = reqJs.get("flag").getAsString();
+            List<Integer> flagList = convertToList(flags);
+            List<Integer> targetMonthList = new ArrayList<>();
+            if (reqJs.has("targetMonth")) {
+                String targetMonths = reqJs.get("targetMonth").getAsString();
+                 targetMonthList = convertToList(targetMonths);
+            }
 
-            List<Integer> flagList = convertFlags(flags);
-            List<SubmitData> submitDataList = submitDataService.selectDateByNameAndIdAndFlag(name, id, flagList);
+            List<SubmitData> submitDataList = submitDataService.selectDateByNameAndIdAndFlag(name, id, targetMonthList, flagList);
             log.info("已提交的记录: {}", submitDataList);
 
             return ApiResponse.ok(submitDataList);
@@ -395,11 +395,11 @@ public class AttendanceController {
     }
 
     /**
-     * convert flags from string to list<int>
+     * convert String from string to list<Integer>
      * @param flags
      * @return
      */
-    private List<Integer> convertFlags(String flags) {
+    private List<Integer> convertToList(String flags) {
         if (null == flags || flags.isEmpty()) {
             return null;
         }
